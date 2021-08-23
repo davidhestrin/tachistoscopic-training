@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+      #display {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        /* bring your own prefixes */
+        transform: translate(-50%, -50%);
+      }
+      body {
+        /* background-color: rgb(111, 222, 56); */
+        background-color: yellow;
+
+      }
+
+      .hide {
+        display: none;
+      }
+      #bottomControls {
+          position:absolute;
+          bottom: 5%;
+          right:50%;
+      }
+     
+
+    </style>
+  </head>
+  <body>
+    <div id="display"></div>
+
+    <div id="controls">
+    Speed (smaller number is faster): <input id="speed" value="300" /><br />
+    Initial Size: <input id="initSize" value="200" /><br />
+    Smallest Size: <input id="smallSize" value="20" /><br />
+    Size change between frames: <input id="change" value="10" /><br />
+    <button onclick="startChar()">Start Random Character Tachy</button>
+    <button onclick="startWords()">Start Word Tachy</button>
+    <button onclick="startEmoji()">Start Emoji Tachy</button>
+    </div>
+    <div id="bottomControls">
+    <button onclick="stopTachy()">Stop Tachy</button>
+
+
+    </div>
+
+  </body>
+  <script>
+    //could make size increase as well
+    //add voice recognition
+    // add number system on side with big number to track prog as well
+    speed = 300;
+    number = 200;
+    sizeChange = 10;
+    min = 20;
+    initNumber = 50;
+
+    function getCustomSettings() {
+      if (parseInt(document.getElementById("speed").value) > 0) {
+        speed = parseInt(document.getElementById("speed").value);
+      }
+      if (parseInt(document.getElementById("initSize").value) > 0) {
+        number = parseInt(document.getElementById("initSize").value);
+      }
+      if (parseInt(document.getElementById("smallSize").value) > 0) {
+        min = parseInt(document.getElementById("smallSize").value);
+      }
+      if (parseInt(document.getElementById("change").value) > 0) {
+        sizeChange = parseInt(document.getElementById("change").value);
+      }
+    }
+
+    function makeid(length) {
+      var result = "";
+      var characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      var charactersLength = characters.length;
+      for (var i = 0; i < length; i++) {
+        result += characters.charAt(
+          Math.floor(Math.random() * charactersLength)
+        );
+      }
+      return result;
+    }
+
+    function makeWord() {
+      var result = "";
+      var words = [
+        "happy",
+        "relaxed",
+        "calm",
+        "focused",
+        "powerful",
+        "healthy",
+        "vital",
+        "loving",
+        "capable",
+      ];
+      result = words[Math.floor(Math.random() * words.length)];
+      return result;
+    }
+
+    function showEmoji() {
+      var result = "";
+      var emojis = [
+        "✌",
+        "😂",
+        "😝",
+        "😁",
+        "😱",
+        "👉",
+        "🙌",
+        "🍻",
+        "🔥",
+        "🌈",
+        "☀",
+        "🎈",
+        "🌹",
+        "🎀",
+        "⚽",
+        "🎾",
+        "🏁",
+        "😡",
+        "👿",
+        "🐻",
+        "🐶",
+        "🐬",
+        "🐟",
+        "🍀",
+        "👀",
+        "🚗",
+        "🍎",
+        "💝",
+        "💙",
+        "👌",
+        "❤",
+        "😍",
+        "😉",
+        "😓",
+        "😳",
+        "💪",
+        "💩",
+        "🍸",
+        "🔑",
+        "💖",
+        "🌟",
+        "🎉",
+        "🌺",
+        "🎶",
+        "👠",
+        "🏈",
+        "⚾",
+        "🏆",
+        "👽",
+        "💀",
+        "🐵",
+        "🐮",
+        "🐩",
+        "🐎",
+        "💣",
+        "👃",
+        "👂",
+        "🍓",
+        "💘",
+        "💜",
+        "👊",
+        "💋",
+        "😘",
+        "😜",
+        "😵",
+        "🙏",
+        "👋",
+        "🚽",
+        "💃",
+        "💎",
+        "🚀",
+        "🌙",
+        "🎁",
+        "⛄",
+        "🌊",
+        "⛵",
+        "🏀",
+        "🎱",
+        "💰",
+        "👶",
+        "👸",
+        "🐰",
+        "🐷",
+        "🐍",
+        "🐫",
+        "🔫",
+        "👄",
+        "🚲",
+        "🍉",
+        "💛",
+        "💚",
+      ];
+      result = emojis[Math.floor(Math.random() * emojis.length)];
+      return result;
+    }
+
+    animation = "";
+
+    function startChar() {
+            stopTachy();
+      controls.classList.add("hide");
+
+      getCustomSettings();
+      initNumber = number;
+      animation = setInterval(function () {
+        if (number < min) {
+          number = initNumber;
+        }
+        size = number + "px";
+        document.getElementById("display").style.fontSize = size;
+        document.getElementById("display").innerHTML = makeid(1);
+        number -= sizeChange;
+      }, speed);
+    }
+
+    function startWords() {
+            stopTachy();
+      controls.classList.add("hide");
+
+      getCustomSettings();
+      initNumber = number;
+      animation = setInterval(function () {
+        if (number < min) {
+          number = initNumber;
+        }
+        size = number + "px";
+        document.getElementById("display").style.fontSize = size;
+        document.getElementById("display").innerHTML = makeWord();
+        number -= sizeChange;
+      }, speed);
+    }
+
+    function startEmoji() {
+      stopTachy();
+      controls.classList.add("hide");
+
+      getCustomSettings();
+      initNumber = number;
+      animation = setInterval(function () {
+        if (number < min) {
+          number = initNumber;
+        }
+        size = number + "px";
+        document.getElementById("display").style.fontSize = size;
+        document.getElementById("display").innerHTML = showEmoji();
+        number -= sizeChange;
+      }, speed);
+    }
+
+    function stopTachy(){
+      clearInterval(animation);
+      controls.classList.remove("hide");
+    }
+
+
+    controls = document.getElementById("controls");
+  </script>
+</html>
