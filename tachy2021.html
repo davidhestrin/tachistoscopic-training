@@ -37,6 +37,12 @@
     Initial Size: <input id="initSize" value="200" /><br />
     Smallest Size: <input id="smallSize" value="20" /><br />
     Size change between frames: <input id="change" value="10" /><br />
+    Set background color with RGB values Red:<input id="red" value="255" type="number"/>Green:<input id="green" value="255" type="number"/>Blue:<input id="blue" value="0" type="number"/><br />
+    Set text color with RGB values Red:<input id="redT" value="255" type="number" />Green:<input id="greenT" value="255"
+      type="number" />Blue:<input id="blueT" value="0" type="number" /><br />
+
+
+
     <button onclick="startChar()">Start Random Character Tachy</button>
     <button onclick="startWords()">Start Word Tachy</button>
     <button onclick="startEmoji()">Start Emoji Tachy</button>
@@ -71,6 +77,30 @@
       if (parseInt(document.getElementById("change").value) > 0) {
         sizeChange = parseInt(document.getElementById("change").value);
       }
+      r = document.getElementById("red").value;
+      g = document.getElementById("green").value;
+      b = document.getElementById("blue").value;
+      rt = document.getElementById("redT").value;
+      gt = document.getElementById("greenT").value;
+      bt = document.getElementById("blueT").value;
+
+
+
+      function rgb(r, g, b) {
+        cssString = ["rgb(", r, ",", g, ",", b, ")"].join("");
+        document.body.style.backgroundColor = cssString;
+
+      };
+
+        function rgbT(r, g, b) {
+        cssString = ["rgb(", r, ",", g, ",", b, ")"].join("");
+        document.body.style.color = cssString;
+
+      };
+
+      rgb(r,g,b);
+      rgbT(rt, gt, bt);
+
     }
 
     function makeid(length) {
